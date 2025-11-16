@@ -45,4 +45,25 @@ public class Grade {
                 "No grade found for the specified instant."
         );
     }
+
+    public double getCourseGrade(Course course, Instant t) {
+        if (this.getExam().getCourse().equals(course)) {
+
+            for (NoteHistory noteHistory : histories) {
+
+                Instant dateAsInstant = noteHistory
+                        .getDate()
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant();
+
+                if (dateAsInstant.equals(t)) {
+                    return  noteHistory.getValue();
+                }
+            }
+
+        }
+        throw new IllegalArgumentException(
+                "Course not found."
+        );
+    }
 }
